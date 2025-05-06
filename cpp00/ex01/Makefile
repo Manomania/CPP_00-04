@@ -12,7 +12,8 @@ AR					:=	ar rcs
 RM					:=	rm -f
 
 SRC_F				=	PhoneBook \
-						Contact
+						Contact \
+						main
 
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))

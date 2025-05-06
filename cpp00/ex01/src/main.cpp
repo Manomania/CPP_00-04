@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maximart <maximart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/27 11:30:06 by maximart          #+#    #+#             */
-/*   Updated: 2025/04/28 13:22:45 by maximart         ###   ########.fr       */
+/*   Created: 2025/05/06 15:36:04 by maximart          #+#    #+#             */
+/*   Updated: 2025/05/06 19:06:30 by maximart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include <PhoneBook.hpp>
 
-int	main(int argc, char **argv)
+int	main()
 {
-	if (argc == 1)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	else
+	PhoneBook	PhoneBook;
+	Contact		Contact;
+	std::string	Choice;
+
+	while (1)
 	{
-		for (int i = 1; i < argc; i++)
-			for (int j = 0; argv[i][j]; j++)
-				std::cout << static_cast<char>(toupper(argv[i][j]));
+		std::cout << "Make your choice - ADD, SEARCH, EXIT :" << std::endl;
+		std::cin >> Choice;
+		std::cout << std::endl;
+		if (Choice == "EXIT")
+			break ;
+		else if (Choice == "ADD")
+			PhoneBook.AddContact();
+		else if (Choice == "SEARCH")
+			PhoneBook.SearchContact();
+		else
+			std::cout << "Invalid" << std::endl;
 		std::cout << std::endl;
 	}
-	return (0);
+	return 0;
 }
