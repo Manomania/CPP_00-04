@@ -15,7 +15,7 @@
 
 class PhoneBook {
 private:
-	Contact	Contact[8];
+	Contact	Contacts[8];
 	int		Count;
 	int		Oldest;
 public:

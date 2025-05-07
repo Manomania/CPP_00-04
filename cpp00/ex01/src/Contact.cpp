@@ -40,12 +40,24 @@ static std::string	truncate(std::string str, size_t width)
 	return (str);
 }
 
-std::string	Contact::GetFirstname() const
+std::string	Contact::GetContact() const
 {
 	std::stringstream	ss;
 
 	ss << std::setw(10) << truncate(this->FirstName, 10) << "|";
 	ss << std::setw(10) << truncate(this->LastName, 10) << "|";
 	ss << std::setw(10) << truncate(this->NickName, 10) << "|";
+	return (ss.str());
+}
+
+std::string	Contact::GetFullContact() const
+{
+	std::stringstream	ss;
+
+	ss << "First name" << std::setw(7) << " : " << this->FirstName << std::endl;
+	ss << "Last name" << std::setw(8) << " : " << this->LastName << std::endl;
+	ss << "Nickname" << std::setw(9) << " : " << this->NickName << std::endl;
+	ss << "Phone number" << std::setw(5) << " : " << this->PhoneNumber << std::endl;
+	ss << "Darkest secret" << std::setw(2) << " : " << this->DarkestSecret << std::endl;
 	return (ss.str());
 }

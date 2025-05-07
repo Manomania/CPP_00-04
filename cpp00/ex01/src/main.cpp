@@ -12,12 +12,17 @@
 
 #include <PhoneBook.hpp>
 
+void clearScreen() {
+	std::cout << "\033[2J\033[1;1H";
+}
+
 int	main()
 {
 	PhoneBook	PhoneBook;
 	Contact		Contact;
 	std::string	Choice;
 
+	std::cout << "\033[2J\033[1;1H";
 	while (1)
 	{
 		std::cout << "Make your choice - ADD, SEARCH, EXIT :" << std::endl;

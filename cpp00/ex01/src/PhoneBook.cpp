@@ -32,7 +32,7 @@ void PhoneBook::AddContact()
 	}
 	else
 		Index = Count++;
-	if (!Contact[Index].SetContact())
+	if (!Contacts[Index].SetContact())
 	{
 		std::cout << "Error" << std::endl;
 		return ;
@@ -41,14 +41,18 @@ void PhoneBook::AddContact()
 	std::cout << std::endl;
 }
 
-void	PhoneBook::DisplayContact(int Index)
+void PhoneBook::DisplayContact(int Index)
 {
-	std::cout << "\nCONTACT #" << (Index + 1) << " DETAILS:" << std::endl;
-	std::cout << "First name: " << Contact[Index].GetFirstName() << std::endl;
-	std::cout << "Last name: " << Contact[Index].GetLastName() << std::endl;
-	std::cout << "Nickname: " << Contact[Index].GetNickName() << std::endl;
-	std::cout << "Phone number: " << Contact[Index].GetPhoneNumber() << std::endl;
-	std::cout << "Darkest secret: " << Contact[Index].GetDarkestSecret() << std::endl;
+	std::cout << "CONTACT #" << (Index + 1) << ": " << std::endl << Contacts[Index].GetFullContact() << std::endl;
+}
+void	PrintHeader()
+{
+	std::cout << "|----------|----------|----------|----------|" << std::endl;
+	std::cout << "|" << std::setw(10) << "INDEX" << "|";
+	std::cout << std::setw(10) << "FIRST NAME" << "|";
+	std::cout << std::setw(10) << "LAST NAME" << "|";
+	std::cout << std::setw(10) << "NICKNAME" << "|" << std::endl;
+	std::cout << "|----------|----------|----------|----------|" << std::endl;
 }
 
 void	PhoneBook::SearchContact()
@@ -60,32 +64,20 @@ void	PhoneBook::SearchContact()
 		std::cout << "EMPTY" << std::endl;
 		return ;
 	}
-	std::cout << "|----------|----------|----------|----------|" << std::endl;
-	std::cout << "|" << std::setw(10) << "INDEX" << "|";
-	std::cout << std::setw(10) << "FIRST NAME" << "|";
-	std::cout << std::setw(10) << "LAST NAME" << "|";
-	std::cout << std::setw(10) << "NICKNAME" << "|" << std::endl;
-	std::cout << "|----------|----------|----------|----------|" << std::endl;
+	PrintHeader();
 	for (int i = 0; i < Count; i++)
 	{
-		std::cout << "|" << std::setw(10) << (i+1) << "|" << Contact[i].GetContact() << std::endl;
+		std::cout << "|" << std::setw(10) << (i+1) << "|" << Contacts[i].GetContact() << std::endl;
 		std::cout << "|----------|----------|----------|----------|" << std::endl;
 	}
 	std::cout << std::endl;
 	std::cout << "\nEnter index to display (1-" << Count << "): ";
 	std::cin >> Index;
-	if (std::cin.fail())
+	std::cout << std::endl;
+	if (Index > Count)
 	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Invalid input" << std::endl;
+		std::cout << "Error" << std::endl;
 		return ;
 	}
-	Index--;
-	if (Index < 0 || Index >= Count)
-	{
-		std::cout << "Index out of range" << std::endl;
-		return ;
-	}
-	DisplayContact(Index);
+	DisplayContact(Index - 1);
 }

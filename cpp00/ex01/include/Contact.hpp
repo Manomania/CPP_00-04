@@ -25,4 +25,5 @@ public:
 	~Contact();
 	bool		SetContact();
 	std::string	GetContact() const;
+	std::string	GetFullContact() const;
 };
