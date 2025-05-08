@@ -23,10 +23,11 @@ int	main()
 	std::string	Choice;
 
 	std::cout << "\033[2J\033[1;1H";
-	while (1)
+	while (42)
 	{
 		std::cout << "Make your choice - ADD, SEARCH, EXIT :" << std::endl;
 		std::cin >> Choice;
+		std::cin.clear();
 		std::cout << std::endl;
 		if (Choice == "EXIT")
 			break ;
@@ -35,8 +36,8 @@ int	main()
 		else if (Choice == "SEARCH")
 			PhoneBook.SearchContact();
 		else
-			std::cout << "Invalid" << std::endl;
+			std::cout << "Invalid choice" << std::endl;
 		std::cout << std::endl;
 	}
-	return 0;
+	return (0);
 }

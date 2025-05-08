@@ -23,7 +23,7 @@ private:
 public:
 	Contact();
 	~Contact();
-	bool		SetContact();
+	bool		PromptContact();
 	std::string	GetContact() const;
 	std::string	GetFullContact() const;
 };

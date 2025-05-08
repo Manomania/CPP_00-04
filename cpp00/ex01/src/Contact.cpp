@@ -14,29 +14,89 @@
 #include "Contact.hpp"
 #include <iomanip>
 #include <sstream>
+#include <limits>
+#include <cctype>
 
 Contact::Contact() {}
 Contact::~Contact() {}
 
-bool Contact::SetContact()
+static bool	IsEmpty(std::string &Str)
 {
-	std::cout << "First name : ";
-	std::cin >> this->FirstName;
-	std::cout << "Last name : ";
-	std::cin >> this->LastName;
-	std::cout << "Nickname : ";
-	std::cin >> this->NickName;
-	std::cout << "Phone number : ";
-	std::cin >> this->PhoneNumber;
-	std::cout << "Darkest secret : ";
-	std::cin >> this->DarkestSecret;
+	return (Str.empty());
+}
+
+static bool	IsNotDigit(std::string &Str)
+{
+	for (size_t i = 0; i < Str.length(); i++)
+	{
+		if (!std::isdigit((Str[i])))
+			return (true);
+	}
+	return (false);
+}
+
+static bool	IsAlpha(std::string &Str)
+{
+	for (size_t i = 0; i < Str.length(); i++)
+	{
+		if (!std::isalpha((Str[i])))
+			return (true);
+	}
+	return (false);
+}
+
+bool Contact::PromptContact()
+{
+	std::string Input;
+
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	while (true)
+	{
+		std::cout << "First name: ";
+		std::getline(std::cin, this->FirstName);
+		if (!IsEmpty(FirstName) && !IsAlpha(FirstName))
+			break ;
+		std::cout << "Error: First name cannot be empty and must contain valid character\n" << std::endl;
+	}
+	while (true)
+	{
+		std::cout << "Last name: ";
+		std::getline(std::cin, this->LastName);
+		if (!IsEmpty(LastName) && !IsAlpha(LastName))
+			 break ;
+		std::cout << "Error: Last name cannot be empty and must contain valid character\n" << std::endl;
+	}
+	while (true)
+	{
+		std::cout << "Nickname: ";
+		std::getline(std::cin, this->NickName);
+		if (!IsEmpty(NickName))
+			break ;
+		std::cout << "Error: Nickname cannot be empty and must contain valid character\n" << std::endl;
+	}
+	while (true)
+	{
+		std::cout << "Phone number: ";
+		std::getline(std::cin, this->PhoneNumber);
+		if (!IsEmpty(PhoneNumber) && !IsNotDigit(PhoneNumber))
+			break ;
+		std::cout << "Error: Phone number cannot be empty and must contain valid character\n" << std::endl;
+	}
+	while (true)
+	{
+		std::cout << "Darkest secret: ";
+		std::getline(std::cin, this->DarkestSecret);
+		if (!IsEmpty(DarkestSecret))
+			break ;
+		std::cout << "Error: Darkest secret cannot be empty\n" << std::endl;
+	}
 	return (true);
 }
 
-static std::string	truncate(std::string str, size_t width)
+static std::string	truncate(std::string str)
 {
-	if (str.length() > width)
-		return (str.substr(0, width - 1) + ".");
+	if (str.length() > 10)
+		return (str.substr(0, 10 - 1) + ".");
 	return (str);
 }
 
@@ -44,9 +104,9 @@ std::string	Contact::GetContact() const
 {
 	std::stringstream	ss;
 
-	ss << std::setw(10) << truncate(this->FirstName, 10) << "|";
-	ss << std::setw(10) << truncate(this->LastName, 10) << "|";
-	ss << std::setw(10) << truncate(this->NickName, 10) << "|";
+	ss << std::setw(10) << truncate(this->FirstName) << "|";
+	ss << std::setw(10) << truncate(this->LastName) << "|";
+	ss << std::setw(10) << truncate(this->NickName) << "|";
 	return (ss.str());
 }
 

@@ -22,6 +22,6 @@ public:
 	PhoneBook();
 	~PhoneBook();
 	void	AddContact();
-	void	SearchContact();
-	void	DisplayContact(int Index);
+	void	SearchContact() const;
+	void	DisplayContact(int Index) const;
 };

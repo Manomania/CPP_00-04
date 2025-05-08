@@ -12,13 +12,11 @@
 
 #include "PhoneBook.hpp"
 #include <iomanip>
-#include <limits>
 
 PhoneBook::PhoneBook() {
 	Count = 0;
 	Oldest = 0;
 }
-
 PhoneBook::~PhoneBook() {}
 
 void PhoneBook::AddContact()
@@ -26,25 +24,25 @@ void PhoneBook::AddContact()
 	int	Index;
 
 	if (Count >= 8)
+		Index = Oldest;
+	else
+		Index = Count;
+	if (!Contacts[Index].PromptContact())
+	{
+		std::cout << "Error" << std::endl;
+		return ;
+	}
+	if (Count >= 8)
 	{
 		Index = Oldest;
 		Oldest = (Oldest + 1) % 8;
 	}
 	else
 		Index = Count++;
-	if (!Contacts[Index].SetContact())
-	{
-		std::cout << "Error" << std::endl;
-		return ;
-	}
-	std::cout << "Contact added" << std::endl;
+	std::cout << "Contact added successfully" << std::endl;
 	std::cout << std::endl;
 }
 
-void PhoneBook::DisplayContact(int Index)
-{
-	std::cout << "CONTACT #" << (Index + 1) << ": " << std::endl << Contacts[Index].GetFullContact() << std::endl;
-}
 void	PrintHeader()
 {
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
@@ -55,7 +53,12 @@ void	PrintHeader()
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
 }
 
-void	PhoneBook::SearchContact()
+void PhoneBook::DisplayContact(int Index) const
+{
+	std::cout << "CONTACT #" << (Index + 1) << ": " << std::endl << Contacts[Index].GetFullContact() << std::endl;
+}
+
+void	PhoneBook::SearchContact() const
 {
 	int	Index;
 
@@ -70,13 +73,18 @@ void	PhoneBook::SearchContact()
 		std::cout << "|" << std::setw(10) << (i+1) << "|" << Contacts[i].GetContact() << std::endl;
 		std::cout << "|----------|----------|----------|----------|" << std::endl;
 	}
-	std::cout << std::endl;
 	std::cout << "\nEnter index to display (1-" << Count << "): ";
-	std::cin >> Index;
-	std::cout << std::endl;
-	if (Index > Count)
+	if (!(std::cin >> Index))
 	{
-		std::cout << "Error" << std::endl;
+		std::cout << "Error: Only digits allowed" << std::endl;
+		std::cin.clear();
+		return;
+	}
+	std::cout << std::endl;
+	if (Index > Count || Index < 1)
+	{
+		std::cout << "Error: Index must be between 1 and " << Count << std::endl;
+		std::cout << std::endl;
 		return ;
 	}
 	DisplayContact(Index - 1);
