@@ -43,7 +43,6 @@ void Account::_displayTimestamp()
 	std::setfill('0') << std::setw(2) << TimeNow->tm_sec << "] ";
 }
 
-
 int	Account::getNbAccounts(void)
 {
 	return (Account::_nbAccounts);
