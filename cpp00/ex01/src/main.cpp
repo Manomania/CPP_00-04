@@ -18,8 +18,8 @@ void clearScreen() {
 
 int	main()
 {
-	PhoneBook	phoneBook;
-	Contact		contact;
+	phonebook	phonebook;
+	contact		contact;
 	std::string	choice;
 
 	std::cout << "\033[2J\033[1;1H";

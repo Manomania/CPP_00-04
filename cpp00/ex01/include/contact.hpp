@@ -13,7 +13,7 @@
 #pragma once
 #include <iostream>
 
-class Contact {
+class contact {
 private:
 	std::string	firstName;
 	std::string	lastName;
@@ -21,8 +21,8 @@ private:
 	std::string	phoneNumber;
 	std::string	darkestSecret;
 public:
-	Contact();
-	~Contact();
+	contact();
+	~contact();
 	bool		promptContact();
 	std::string	getContact() const;
 	std::string	getFullContact() const;

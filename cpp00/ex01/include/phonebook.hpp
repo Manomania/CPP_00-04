@@ -13,14 +13,14 @@
 #pragma once
 #include <Contact.hpp>
 
-class PhoneBook {
+class phonebook {
 private:
-	Contact	contacts[8];
+	contact	contacts[8];
 	int		count;
 	int		oldest;
 public:
-	PhoneBook();
-	~PhoneBook();
+	phonebook();
+	~phonebook();
 	void	addContact();
 	void	searchContact() const;
 	void	displayContact(int Index) const;
