@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 AUTHOR				:=	maximart
-NAME				:=	PhoneBook
+NAME				:=	phonebook
 HEADER				=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
@@ -11,8 +11,8 @@ CFLAGS				+=	-std=c++98
 AR					:=	ar rcs
 RM					:=	rm -f
 
-SRC_F				=	PhoneBook \
-						Contact \
+SRC_F				=	phonebook \
+						contact \
 						main
 
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
