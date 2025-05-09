@@ -12,6 +12,7 @@
 
 #include "phonebook.hpp"
 #include <iomanip>
+#include <limits>
 
 PhoneBook::PhoneBook() {
 	count = 0;
@@ -78,6 +79,7 @@ void	PhoneBook::searchContact() const
 	{
 		std::cout << "Error: Only digits allowed" << std::endl;
 		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		return ;
 	}
 	std::cout << std::endl;
