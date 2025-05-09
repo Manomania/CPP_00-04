@@ -15,13 +15,13 @@
 
 class PhoneBook {
 private:
-	Contact	Contacts[8];
-	int		Count;
-	int		Oldest;
+	Contact	contacts[8];
+	int		count;
+	int		oldest;
 public:
 	PhoneBook();
 	~PhoneBook();
-	void	AddContact();
-	void	SearchContact() const;
-	void	DisplayContact(int Index) const;
+	void	addContact();
+	void	searchContact() const;
+	void	displayContact(int Index) const;
 };

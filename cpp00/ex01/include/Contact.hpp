@@ -15,15 +15,15 @@
 
 class Contact {
 private:
-	std::string	FirstName;
-	std::string	LastName;
-	std::string	NickName;
-	std::string	PhoneNumber;
-	std::string	DarkestSecret;
+	std::string	firstName;
+	std::string	lastName;
+	std::string	nickName;
+	std::string	phoneNumber;
+	std::string	darkestSecret;
 public:
 	Contact();
 	~Contact();
-	bool		PromptContact();
-	std::string	GetContact() const;
-	std::string	GetFullContact() const;
+	bool		promptContact();
+	std::string	getContact() const;
+	std::string	getFullContact() const;
 };

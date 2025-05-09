@@ -14,36 +14,36 @@
 #include <iomanip>
 
 PhoneBook::PhoneBook() {
-	Count = 0;
-	Oldest = 0;
+	count = 0;
+	oldest = 0;
 }
 PhoneBook::~PhoneBook() {}
 
-void PhoneBook::AddContact()
+void PhoneBook::addContact()
 {
 	int	Index;
 
-	if (Count >= 8)
-		Index = Oldest;
+	if (count >= 8)
+		Index = oldest;
 	else
-		Index = Count;
-	if (!Contacts[Index].PromptContact())
+		Index = count;
+	if (!contacts[Index].promptContact())
 	{
 		std::cout << "Error" << std::endl;
 		return ;
 	}
-	if (Count >= 8)
+	if (count >= 8)
 	{
-		Index = Oldest;
-		Oldest = (Oldest + 1) % 8;
+		Index = oldest;
+		oldest = (oldest + 1) % 8;
 	}
 	else
-		Index = Count++;
+		Index = count++;
 	std::cout << "Contact added successfully" << std::endl;
 	std::cout << std::endl;
 }
 
-void	PrintHeader()
+void	printHeader()
 {
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
 	std::cout << "|" << std::setw(10) << "INDEX" << "|";
@@ -53,39 +53,39 @@ void	PrintHeader()
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
 }
 
-void PhoneBook::DisplayContact(int Index) const
+void PhoneBook::displayContact(int Index) const
 {
-	std::cout << "CONTACT #" << (Index + 1) << ": " << std::endl << Contacts[Index].GetFullContact() << std::endl;
+	std::cout << "CONTACT #" << (Index + 1) << ": " << std::endl << contacts[Index].getFullContact() << std::endl;
 }
 
-void	PhoneBook::SearchContact() const
+void	PhoneBook::searchContact() const
 {
-	int	Index;
+	int	index;
 
-	if (Count == 0)
+	if (count == 0)
 	{
 		std::cout << "EMPTY" << std::endl;
 		return ;
 	}
-	PrintHeader();
-	for (int i = 0; i < Count; i++)
+	printHeader();
+	for (int i = 0; i < count; i++)
 	{
-		std::cout << "|" << std::setw(10) << (i+1) << "|" << Contacts[i].GetContact() << std::endl;
+		std::cout << "|" << std::setw(10) << (i+1) << "|" << contacts[i].getContact() << std::endl;
 		std::cout << "|----------|----------|----------|----------|" << std::endl;
 	}
-	std::cout << "\nEnter index to display (1-" << Count << "): ";
-	if (!(std::cin >> Index))
+	std::cout << "\nEnter index to display (1-" << count << "): ";
+	if (!(std::cin >> index))
 	{
 		std::cout << "Error: Only digits allowed" << std::endl;
 		std::cin.clear();
-		return;
+		return ;
 	}
 	std::cout << std::endl;
-	if (Index > Count || Index < 1)
+	if (index > count || index < 1)
 	{
-		std::cout << "Error: Index must be between 1 and " << Count << std::endl;
+		std::cout << "Error: Index must be between 1 and " << count << std::endl;
 		std::cout << std::endl;
 		return ;
 	}
-	DisplayContact(Index - 1);
+	displayContact(index - 1);
 }

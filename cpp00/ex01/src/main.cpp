@@ -18,23 +18,22 @@ void clearScreen() {
 
 int	main()
 {
-	PhoneBook	PhoneBook;
-	Contact		Contact;
-	std::string	Choice;
+	PhoneBook	phoneBook;
+	Contact		contact;
+	std::string	choice;
 
 	std::cout << "\033[2J\033[1;1H";
 	while (42)
 	{
 		std::cout << "Make your choice - ADD, SEARCH, EXIT :" << std::endl;
-		std::cin >> Choice;
-		std::cin.clear();
+		std::cin >> choice;
 		std::cout << std::endl;
-		if (Choice == "EXIT")
+		if (choice == "EXIT")
 			break ;
-		else if (Choice == "ADD")
-			PhoneBook.AddContact();
-		else if (Choice == "SEARCH")
-			PhoneBook.SearchContact();
+		else if (choice == "ADD")
+			phoneBook.addContact();
+		else if (choice == "SEARCH")
+			phoneBook.searchContact();
 		else
 			std::cout << "Invalid choice" << std::endl;
 		std::cout << std::endl;
