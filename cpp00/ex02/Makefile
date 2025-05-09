@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 AUTHOR				:=	maximart
-NAME				:=	PhoneBook
+NAME				:=	ex02
 HEADER				=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
