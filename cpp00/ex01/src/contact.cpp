@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 
-#include "Contact.hpp"
+#include "contact.hpp"
 #include <iomanip>
 #include <sstream>
 #include <limits>
 #include <cctype>
 
-contact::contact() {}
-contact::~contact() {}
+Contact::Contact() {}
+Contact::~Contact() {}
 
 static bool	isEmpty(std::string &Str)
 {
@@ -45,7 +45,7 @@ static bool	isAlpha(std::string &Str)
 	return (false);
 }
 
-bool contact::promptContact()
+bool Contact::promptContact()
 {
 	std::string Input;
 
@@ -100,7 +100,7 @@ static std::string	truncate(std::string str)
 	return (str);
 }
 
-std::string	contact::getContact() const
+std::string	Contact::getContact() const
 {
 	std::stringstream	ss;
 
@@ -110,7 +110,7 @@ std::string	contact::getContact() const
 	return (ss.str());
 }
 
-std::string	contact::getFullContact() const
+std::string	Contact::getFullContact() const
 {
 	std::stringstream	ss;
 

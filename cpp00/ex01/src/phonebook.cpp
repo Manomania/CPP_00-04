@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
+#include "phonebook.hpp"
 #include <iomanip>
 
-phonebook::phonebook() {
+PhoneBook::PhoneBook() {
 	count = 0;
 	oldest = 0;
 }
-phonebook::~phonebook() {}
+PhoneBook::~PhoneBook() {}
 
-void phonebook::addContact()
+void PhoneBook::addContact()
 {
 	int	Index;
 
@@ -53,12 +53,12 @@ void	printHeader()
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
 }
 
-void phonebook::displayContact(int Index) const
+void PhoneBook::displayContact(int Index) const
 {
 	std::cout << "CONTACT #" << (Index + 1) << ": " << std::endl << contacts[Index].getFullContact() << std::endl;
 }
 
-void	phonebook::searchContact() const
+void	PhoneBook::searchContact() const
 {
 	int	index;
 

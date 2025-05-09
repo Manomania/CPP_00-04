@@ -11,16 +11,16 @@
 /* ************************************************************************** */
 
 #pragma once
-#include <Contact.hpp>
+#include <contact.hpp>
 
-class phonebook {
+class PhoneBook {
 private:
-	contact	contacts[8];
+	Contact	contacts[8];
 	int		count;
 	int		oldest;
 public:
-	phonebook();
-	~phonebook();
+	PhoneBook();
+	~PhoneBook();
 	void	addContact();
 	void	searchContact() const;
 	void	displayContact(int Index) const;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <PhoneBook.hpp>
+#include <phonebook.hpp>
 
 void clearScreen() {
 	std::cout << "\033[2J\033[1;1H";
@@ -18,8 +18,8 @@ void clearScreen() {
 
 int	main()
 {
-	phonebook	phonebook;
-	contact		contact;
+	PhoneBook	phoneBook;
+	Contact		contact;
 	std::string	choice;
 
 	std::cout << "\033[2J\033[1;1H";
