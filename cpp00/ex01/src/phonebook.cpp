@@ -30,7 +30,7 @@ void PhoneBook::addContact()
 		Index = count;
 	if (!contacts[Index].promptContact())
 	{
-		std::cout << "Error" << std::endl;
+		std::cout << "\nError: Contact addition canceled" << std::endl;
 		return ;
 	}
 	if (count >= 8)
@@ -77,11 +77,17 @@ void	PhoneBook::searchContact() const
 	std::cout << "\nEnter index to display (1-" << count << "): ";
 	if (!(std::cin >> index))
 	{
-		std::cout << "Error: Only digits allowed" << std::endl;
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		return ;
+		if (std::cin.eof())
+			return ;
+		else
+		{
+			std::cout << "Error: Only digits allowed" << std::endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return ;
+		}
 	}
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << std::endl;
 	if (index > count || index < 1)
 	{

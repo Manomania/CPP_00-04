@@ -20,26 +20,26 @@
 Contact::Contact() {}
 Contact::~Contact() {}
 
-static bool	isEmpty(std::string &Str)
+static bool	isEmpty(std::string &str)
 {
-	return (Str.empty());
+	return (str.empty());
 }
 
-static bool	isNotDigit(std::string &Str)
+static bool	isNotDigit(std::string &str)
 {
-	for (size_t i = 0; i < Str.length(); i++)
+	for (size_t i = 0; i < str.length(); i++)
 	{
-		if (!std::isdigit((Str[i])))
+		if (!std::isdigit((str[i])))
 			return (true);
 	}
 	return (false);
 }
 
-static bool	isAlpha(std::string &Str)
+static bool	isAlpha(std::string &str)
 {
-	for (size_t i = 0; i < Str.length(); i++)
+	for (size_t i = 0; i < str.length(); i++)
 	{
-		if (!std::isalpha((Str[i])))
+		if (!std::isalpha((str[i])))
 			return (true);
 	}
 	return (false);
@@ -47,21 +47,20 @@ static bool	isAlpha(std::string &Str)
 
 bool Contact::promptContact()
 {
-	std::string Input;
-
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	while (true)
 	{
 		std::cout << "First name: ";
-		std::getline(std::cin, this->firstName);
-		if (!isEmpty(firstName) && !isAlpha(firstName))
+		if (!std::getline(std::cin, this->firstName))
+			return (false);
+		if (!isEmpty(firstName) && !isAlpha(firstName) )
 			break ;
 		std::cout << "Error: First name cannot be empty and must contain valid character\n" << std::endl;
 	}
 	while (true)
 	{
 		std::cout << "Last name: ";
-		std::getline(std::cin, this->lastName);
+		if (!std::getline(std::cin, this->lastName))
+			return (false);
 		if (!isEmpty(lastName) && !isAlpha(lastName))
 			 break ;
 		std::cout << "Error: Last name cannot be empty and must contain valid character\n" << std::endl;
@@ -69,7 +68,8 @@ bool Contact::promptContact()
 	while (true)
 	{
 		std::cout << "Nickname: ";
-		std::getline(std::cin, this->nickName);
+		if (!std::getline(std::cin, this->nickName))
+			return (false);
 		if (!isEmpty(nickName))
 			break ;
 		std::cout << "Error: Nickname cannot be empty and must contain valid character\n" << std::endl;
@@ -77,7 +77,8 @@ bool Contact::promptContact()
 	while (true)
 	{
 		std::cout << "Phone number: ";
-		std::getline(std::cin, this->phoneNumber);
+		if (!std::getline(std::cin, this->phoneNumber))
+			return (false);
 		if (!isEmpty(phoneNumber) && !isNotDigit(phoneNumber))
 			break ;
 		std::cout << "Error: Phone number cannot be empty and must contain valid character\n" << std::endl;
@@ -85,7 +86,8 @@ bool Contact::promptContact()
 	while (true)
 	{
 		std::cout << "Darkest secret: ";
-		std::getline(std::cin, this->darkestSecret);
+		if (!std::getline(std::cin, this->darkestSecret))
+			return (false);
 		if (!isEmpty(darkestSecret))
 			break ;
 		std::cout << "Error: Darkest secret cannot be empty\n" << std::endl;

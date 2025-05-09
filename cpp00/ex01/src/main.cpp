@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits>
 #include <phonebook.hpp>
 
 void clearScreen() {
@@ -22,11 +23,15 @@ int	main()
 	Contact		contact;
 	std::string	choice;
 
-	std::cout << "\033[2J\033[1;1H";
+	clearScreen();
 	while (42)
 	{
 		std::cout << "Make your choice - ADD, SEARCH, EXIT :" << std::endl;
-		std::cin >> choice;
+		if (!std::getline(std::cin, choice))
+		{
+			std::cout << "Error: Program canceled" << std::endl;
+			break;
+		}
 		std::cout << std::endl;
 		if (choice == "EXIT")
 			break ;
@@ -37,6 +42,11 @@ int	main()
 		else
 			std::cout << "Invalid choice" << std::endl;
 		std::cout << std::endl;
+		if (std::cin.eof())
+		{
+			std::cout << "Error: Program canceled" << std::endl;
+			break;
+		}
 	}
 	return (0);
 }
