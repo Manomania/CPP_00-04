@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 AUTHOR				:=	maximart
-NAME				:=	ex01
+NAME				:=	ex02
 HEADER				=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
@@ -12,7 +12,7 @@ AR					:=	ar rcs
 RM					:=	rm -f
 
 SRC_F				=	main
-HDR_F				=	Zombie
+HDR_F				=
 
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
@@ -25,7 +25,7 @@ DEP 				=	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_F)))
 
 SRC_DIR				:=	src/
 OBJ_DIR				:=	obj/
-INC_DIR				:=	include/
+INC_DIR				:=	.
 
 ########################################################################################################################
 #                                                       TARGETS                                                        #
