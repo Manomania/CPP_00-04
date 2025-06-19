@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maximart <maximart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 16:20:40 by maximart          #+#    #+#             */
-/*   Updated: 2025/06/19 10:27:07 by maximart         ###   ########.fr       */
+/*   Created: 2025/06/19 10:24:14 by maximart          #+#    #+#             */
+/*   Updated: 2025/06/19 10:24:14 by maximart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_HPP
-# define ZOMBIE_HPP
+#include "Zombie.hpp"
 
-#include <iostream>
-#include <sstream>
+static std::string	intToString(int nb)
+{
+	std::stringstream ss;
+	ss << nb;
+	return ss.str();
+}
 
-class Zombie {
-	private:
-		std::string _name;
-	public:
-		Zombie();
-		Zombie(std::string name);
-		~Zombie();
-		void	announce();
-		void	setName(std::string name);
-};
-
-Zombie	*zombieHorde(int N, std::string name);
-
-#endif
+Zombie	*zombieHorde(int N, std::string name)
+{
+	if (N <= 0)
+		return (NULL);
+	Zombie *horde = new Zombie[N];
+	for (int i = 0; i < N; i++)
+		horde[i].setName(name + intToString(i));
+	return (horde);
+}
