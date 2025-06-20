@@ -24,7 +24,7 @@ DEP 				=	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_F)))
 
 SRC_DIR				:=	src/
 OBJ_DIR				:=	obj/
-INC_DIR				:=	include/
+INC_DIR				:=	.
 
 ########################################################################################################################
 #                                                       TARGETS                                                        #
