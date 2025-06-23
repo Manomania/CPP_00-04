@@ -1,9 +1,14 @@
 #include "Fixed.hpp"
 
-int main() {
-	std::cout << "Hello from ex00 project!" << std::endl;
-	Fixed Fixed_instance;
-	std::cout << "Using Fixed" << std::endl;
+int main()
+{
+	Fixed a;
+	Fixed b(a);
+	Fixed c;
 
-	return (0);
+	c = b;
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
+	return(0);
 }
