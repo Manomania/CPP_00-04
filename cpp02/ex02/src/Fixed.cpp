@@ -128,7 +128,7 @@ int		Fixed::toInt() const
 
 float		Fixed::toFloat() const
 {
-	return ((int)this->_number / (float)(1 << this->_bits));
+	return (this->_number / (float)(1 << this->_bits));
 }
 
 Fixed&	Fixed::min(Fixed& a, Fixed& b)
