@@ -8,16 +8,20 @@ HEADER				=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
 CFLAGS				+=	-std=c++98
+CFLAGS 				+=	-MMD -MP
 AR					:=	ar rcs
 RM					:=	rm -f
 
-SRC_F				=	main \
-						Fixed
+SRC_F				=	Fixed	\
+						main
 HDR_F				=	Fixed
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))
 DEP 				=	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_F)))
+
+NPROCS				:=	$(shell nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 1)
+UNAME_S				:=	$(shell uname -s 2>/dev/null || echo "Unknown")
 
 ########################################################################################################################
 #                                                      DIRECTORY                                                       #
@@ -52,6 +56,12 @@ fclean: 				clean
 							$(call SEPARATOR)
 
 re: 					.print_header fclean all
+
+help:
+							$(call DISPLAY_HELP)
+
+info:
+							$(call DISPLAY_INFO)
 
 .PHONY: 				all clean fclean re
 
@@ -92,10 +102,16 @@ SPACEMENT			:=	-41
 COMPILED_SRCS		:=	0
 FRAMES				:=	⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏
 SLEEP_FRAME			:=	0.001
-SRCS_TO_COMPILE		=	$(shell find $(SRC_DIR) -type f -name "*.cpp" -newer $(NAME) 2>/dev/null | wc -l)
+
+SRCS_TO_COMPILE		=	$(shell \
+						if [ -f "$(NAME)" ]; then \
+							find $(SRC_DIR) -name "*.cpp" -newer "$(NAME)" 2>/dev/null | wc -l; \
+						else \
+							find $(SRC_DIR) -name "*.cpp" 2>/dev/null | wc -l; \
+						fi)
 
 ifeq ($(SRCS_TO_COMPILE),0)
-	SRCS_TO_COMPILE =	$(shell find $(SRC_DIR) -type f -name "*.cpp" 2>/dev/null | wc -l)
+	SRCS_TO_COMPILE =	$(shell find $(SRC_DIR) -name "*.cpp" 2>/dev/null | wc -l)
 endif
 
 define PROGRESS_BAR_PERCENTAGE
@@ -134,6 +150,38 @@ define	BUILD
 						@printf "%-47b%b" "$(GREEN)NAME:$(DEF_COLOR)" "$(NAME)\n";
 						@printf "%-47b%b" "$(GREEN)CC:$(DEF_COLOR)" "$(CC)\n";
 						@printf "%-47b%b" "$(GREEN)FLAGS:$(DEF_COLOR)" "$(CFLAGS)\n";
+endef
+
+define DISPLAY_HELP
+						$(call SEPARATOR)
+						@printf "                              🚀 MAKEFILE HELP\n"
+						$(call SEPARATOR)
+						@printf "$(GREEN)Basic commands:$(DEF_COLOR)\n"
+						@printf "%-33b%b" "make" "- Build in release mode\n"
+						@printf "%-33b%b" "make clean" "- Remove object files\n"
+						@printf "%-33b%b" "make fclean" "- Remove all generated files\n"
+						@printf "%-33b%b" "make re" "- Clean and rebuild\n\n"
+						@printf "$(GREEN)Advanced commands:$(DEF_COLOR)\n"
+						@printf "%-33b%b" "make info" "- Show system info\n"
+						$(call SEPARATOR)
+endef
+
+define PLURAL
+$(if $(filter 1,$(1)),file,files)
+endef
+
+define DISPLAY_INFO
+						$(call SEPARATOR)
+						@printf "                              📋 SYSTEM INFO\n"
+						$(call SEPARATOR)
+						@printf "%-47b%b" "$(GREEN)System:$(DEF_COLOR)" "$(UNAME_S)\n"
+						@printf "%-47b%b" "$(GREEN)Compiler:$(DEF_COLOR)" "$(CC) $(shell $(CC) --version 2>/dev/null | head -1 | cut -d' ' -f2- || print 'version unknown')\n"
+						@printf "%-47b%b" "$(GREEN)CPU Cores:$(DEF_COLOR)" "$(NPROCS)\n"
+						@printf "%-47b%b" "$(GREEN)Sources:$(DEF_COLOR)" "$(words $(SRC_F)) $(call PLURAL,$(words $(SRC_F)))\n"
+						@printf "%-47b%b" "$(GREEN)Headers:$(DEF_COLOR)" "$(words $(HDR_F)) $(call PLURAL,$(words $(HDR_F)))\n"
+						@printf "%-47b%b" "$(GREEN)Current Dir:$(DEF_COLOR)" "$(shell pwd)\n"
+						@printf "%-47b%b" "$(GREEN)Makefile:$(DEF_COLOR)" "$(firstword $(MAKEFILE_LIST))\n"
+						$(call SEPARATOR)
 endef
 
 -include $(DEP)
