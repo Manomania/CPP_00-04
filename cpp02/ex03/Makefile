@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 AUTHOR				:=  maximart
-NAME				:=	ex02
+NAME				:=	ex03
 HEADER				=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
@@ -12,9 +12,12 @@ CFLAGS 				+=	-MMD -MP
 AR					:=	ar rcs
 RM					:=	rm -f
 
-SRC_F				=	Fixed	\
-						main
-HDR_F				=	Fixed
+SRC_F				=	bsp		\
+						Fixed	\
+						main	\
+						Point
+HDR_F				=	Fixed	\
+						Point
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))
@@ -105,7 +108,22 @@ SLEEP_FRAME			:=	0.001
 
 SRCS_TO_COMPILE		=	$(shell \
 						if [ -f "$(NAME)" ]; then \
-							find $(SRC_DIR) -name "*.cpp" -newer "$(NAME)" 2>/dev/null | wc -l; \
+							if [ "$(INC_DIR)" -nt "$(NAME)" ]; then \
+								find $(SRC_DIR) -name "*.cpp" 2>/dev/null | wc -l; \
+							else \
+								newer_headers=$$(find $(INC_DIR) -name "*.h" -o -name "*.hpp" -newer "$(NAME)" 2>/dev/null); \
+								if [ -n "$$newer_headers" ]; then \
+									count=0; \
+									for header in $$newer_headers; do \
+										header_name=$$(basename $$header); \
+										cpp_files=$$(find $(SRC_DIR) -name "*.cpp" -exec grep -l "#include.*$$header_name" {} \; 2>/dev/null | wc -l); \
+										count=$$((count + cpp_files)); \
+									done; \
+									echo $$count; \
+								else \
+									find $(SRC_DIR) -name "*.cpp" -newer "$(NAME)" 2>/dev/null | wc -l; \
+								fi; \
+							fi; \
 						else \
 							find $(SRC_DIR) -name "*.cpp" 2>/dev/null | wc -l; \
 						fi)
