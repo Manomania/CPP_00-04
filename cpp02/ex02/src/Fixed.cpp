@@ -101,12 +101,10 @@ Fixed Fixed::operator--(int)
 
 Fixed::Fixed(const int number): _number(number << _bits)
 {
-
 }
 
 Fixed::Fixed(const float number): _number(roundf(number * (1 << _bits)))
 {
-
 }
 
 Fixed::~Fixed()
