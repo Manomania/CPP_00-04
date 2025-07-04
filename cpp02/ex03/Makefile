@@ -73,6 +73,13 @@ info:
 ########################################################################################################################
 
 $(NAME):				$(OBJ)
+							@if [ ! -f "$(NAME)" ] && [ "$(MAKECMDGOALS)" != "re" ]; then \
+								printf "$(BLUE)[$(NAME)]:$(DEF_COLOR)\n"; \
+								printf "%-42b%b" "\r$(GREEN)Linking finished" "$(GREEN)[✓]$(DEF_COLOR)\n"; \
+								printf "\n"; \
+								echo "$(ORANGE)--------------------------------------------------------------------------$(DEF_COLOR)"; \
+								printf "\n"; \
+							fi
 							@$(CC) $(CFLAGS) $(OBJ) -o $@
 
 $(OBJ_DIR)%.o: 			$(SRC_DIR)%.cpp $(INC_DIR)
@@ -106,40 +113,57 @@ COMPILED_SRCS		:=	0
 FRAMES				:=	⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏
 SLEEP_FRAME			:=	0.001
 
-SRCS_TO_COMPILE		=	$(shell \
+ifeq ($(MAKECMDGOALS),re)
+					SRCS_TO_COMPILE := $(shell find $(SRC_DIR) -name '*.cpp' | wc -l)
+				else
+					SRCS_TO_COMPILE := $(shell \
 						if [ -f "$(NAME)" ]; then \
 							if [ "$(INC_DIR)" -nt "$(NAME)" ]; then \
-								find $(SRC_DIR) -name "*.cpp" 2>/dev/null | wc -l; \
+								find $(SRC_DIR) -name '*.cpp' | wc -l; \
 							else \
-								newer_headers=$$(find $(INC_DIR) -name "*.h" -o -name "*.hpp" -newer "$(NAME)" 2>/dev/null); \
-								if [ -n "$$newer_headers" ]; then \
-									count=0; \
-									for header in $$newer_headers; do \
-										header_name=$$(basename $$header); \
-										cpp_files=$$(find $(SRC_DIR) -name "*.cpp" -exec grep -l "#include.*$$header_name" {} \; 2>/dev/null | wc -l); \
-										count=$$((count + cpp_files)); \
+								modified_headers=$$(find $(INC_DIR) -name '*.h' -o -name '*.hpp' -newer "$(NAME)"); \
+								all_affected_headers="$$modified_headers"; \
+								search_headers="$$modified_headers"; \
+								while [ -n "$$search_headers" ]; do \
+									new_found=""; \
+									for h in $$search_headers; do \
+										h_name=$$(basename $$h); \
+										includers=$$(grep -rl '#include *"'"$$h_name"'"' $(INC_DIR)); \
+										new_found="$$new_found $$includers"; \
 									done; \
-									echo $$count; \
-								else \
-									find $(SRC_DIR) -name "*.cpp" -newer "$(NAME)" 2>/dev/null | wc -l; \
-								fi; \
+									search_headers=$$(echo $$new_found | tr ' ' '\n' | sort -u | grep -v -x -F "$$(echo $$all_affected_headers | tr ' ' '\n')" ); \
+									all_affected_headers="$$all_affected_headers $$search_headers"; \
+								done; \
+								all_affected_headers=$$(echo $$all_affected_headers | tr ' ' '\n' | sort -u); \
+								affected_cpp=""; \
+								for h in $$all_affected_headers; do \
+									h_name=$$(basename $$h); \
+									cpps=$$(grep -rl '#include *"'"$$h_name"'"' $(SRC_DIR)); \
+									affected_cpp="$$affected_cpp $$cpps"; \
+								done; \
+								modified_cpp=$$(find $(SRC_DIR) -name '*.cpp' -newer "$(NAME)"); \
+								all_cpp="$$modified_cpp $$affected_cpp"; \
+								echo "$$(echo $$all_cpp | tr ' ' '\n' | sort -u | wc -l)"; \
 							fi; \
 						else \
-							find $(SRC_DIR) -name "*.cpp" 2>/dev/null | wc -l; \
+							find $(SRC_DIR) -name '*.cpp' | wc -l; \
 						fi)
+endif
 
 define PROGRESS_BAR_PERCENTAGE
 						$(eval COMPILED_SRCS := $(shell expr $(COMPILED_SRCS) + 1))
-						@if [ $(COMPILED_SRCS) -eq 1 ]; then \
-							printf "$(BLUE)[$(NAME)]:$(DEF_COLOR)\n"; \
-						fi
-						@percentage=$$(if [ $(SRCS_TO_COMPILE) -eq 0 ]; then echo 0; else echo "scale=0; $(COMPILED_SRCS) * 100 / $(SRCS_TO_COMPILE)" | bc; fi); \
-						for frame in $(FRAMES); do \
-							printf "\r$(YELLOW)$$frame Compiling... [%d/%d] %d%%$(DEF_COLOR)" $(COMPILED_SRCS) $(SRCS_TO_COMPILE) $$percentage; \
-							sleep $(SLEEP_FRAME); \
-						done; \
-						if [ $(COMPILED_SRCS) -eq $(SRCS_TO_COMPILE) ]; then \
-							printf "%-42b%b" "\r$(GREEN)Compilation finished [$(COMPILED_SRCS)/$(SRCS_TO_COMPILE)]" "$(GREEN)[✓]$(DEF_COLOR)\n"; \
+						@if [ $(SRCS_TO_COMPILE) -gt 0 ]; then \
+							if [ $(COMPILED_SRCS) -eq 1 ]; then \
+								printf "$(BLUE)[$(NAME)]:$(DEF_COLOR)\n"; \
+							fi; \
+							percentage=$$(expr $(COMPILED_SRCS) \* 100 / $(SRCS_TO_COMPILE) 2>/dev/null || echo 0); \
+							for frame in $(FRAMES); do \
+								printf "\r$(YELLOW)%s Compiling... [%d/%d] %d%%$(DEF_COLOR)" "$$frame" $(COMPILED_SRCS) $(SRCS_TO_COMPILE) $$percentage; \
+								sleep $(SLEEP_FRAME); \
+							done; \
+							if [ $(COMPILED_SRCS) -eq $(SRCS_TO_COMPILE) ]; then \
+								printf "%-42b%b" "\r$(GREEN)Compilation finished [$(COMPILED_SRCS)/$(SRCS_TO_COMPILE)]" "$(GREEN)[✓]$(DEF_COLOR)\n"; \
+							fi; \
 						fi
 endef
 
