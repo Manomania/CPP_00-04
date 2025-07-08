@@ -13,8 +13,10 @@ AR					:=	ar rcs
 RM					:=	rm -f
 
 SRC_F				=	ClapTrap	\
-						main
-HDR_F				=	ClapTrap
+						main		\
+						ScavTrap
+HDR_F				=	ClapTrap	\
+						ScavTrap
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))

@@ -10,20 +10,6 @@ int main() {
 	ClapTrap1.attack("robot");
 	ClapTrap2.takeDamage(9);
 	ClapTrap2.beRepaired(11);
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
-	ClapTrap2.attack("other robot");
+	for (int i = 0; i < 11; i++)
+		ClapTrap2.attack("other robot");
 }

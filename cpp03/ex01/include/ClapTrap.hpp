@@ -2,7 +2,7 @@
 #include <iostream>
 
 class ClapTrap {
-	private:
+	protected:
 		std::string		_name;
 		unsigned int	_hitPoints;
 		unsigned int	_nrgPoints;
