@@ -1,15 +1,15 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(): _name("ClapTrap"), _hitPoints(10), _nrgPoints(10), _atckDamage(0) {
-	std::cout << "Default constructor called" << std::endl;
+ClapTrap::ClapTrap(): _name("ClapTrap"), _hitPoints(10) ,_maxHp(10) ,_nrgPoints(10), _atckDamage(0) {
+	std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap& other): _name(other._name), _hitPoints(other._hitPoints), _nrgPoints(other._nrgPoints), _atckDamage(other._atckDamage) {
-	std::cout << "Copy constructor called" << std::endl;
+ClapTrap::ClapTrap(const ClapTrap& other): _name(other._name), _hitPoints(other._hitPoints), _maxHp(other._maxHp), _nrgPoints(other._nrgPoints), _atckDamage(other._atckDamage) {
+	std::cout << "ClapTrap copy constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const std::string& name): _name(name), _hitPoints(10), _nrgPoints(10), _atckDamage(0){
-	std::cout << "Assignment constructor called" << std::endl;
+ClapTrap::ClapTrap(const std::string& name): _name(name), _hitPoints(10), _maxHp(10), _nrgPoints(10), _atckDamage(0){
+	std::cout << "ClapTrap assignment constructor called" << std::endl;
 }
 
 ClapTrap::~ClapTrap() {
@@ -18,7 +18,7 @@ ClapTrap::~ClapTrap() {
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& copy)
 {
-	std::cout << "Overload operator= called" << std::endl;
+	std::cout << "ClapTrap Overload operator= called" << std::endl;
 	if (this == &copy)
 		return (*this);
 	return (*this);
@@ -47,9 +47,9 @@ void ClapTrap::takeDamage(unsigned int amount) {
 void ClapTrap::beRepaired(unsigned int amount) {
 	if (this->_hitPoints > 0 && this->_nrgPoints > 0) {
 		this->_hitPoints += amount;
-		if (this->_hitPoints > 10) {
-			this->_hitPoints = 10;
-			std::cout << "ClapTrap " << this->_name << " repaired himself with " << amount <<" and reached the limit of 10 hit points!" << std::endl;
+		if (this->_hitPoints >= this->_maxHp) {
+			this->_hitPoints = this->_maxHp;
+			std::cout << "ClapTrap " << this->_name << " repaired himself with " << amount <<" and reached the limit of " << _maxHp << " hit points!" << std::endl;
 		}
 		else {
 			std::cout << "ClapTrap " << this->_name << " repaired himself and gain " << amount << " hit points!" << std::endl;

@@ -1,31 +1,40 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap() {
-	std::cout << "ScavTrap constructor called" << std::endl;
+ScavTrap::ScavTrap(): ClapTrap() {
+	std::cout << "ScavTrap default constructor called" << std::endl;
 	_name = "ScavTrap";
 	_hitPoints = 100;
+	_maxHp = 100;
 	_nrgPoints = 50;
 	_atckDamage = 20;
 	_guardGate = false;
 }
 
-ScavTrap::ScavTrap(const std::string& name) {
+ScavTrap::ScavTrap(const std::string& name): ClapTrap(name) {
 	std::cout << "ScavTrap assignment constructor called" << std::endl;
 	_name = name;
 	_hitPoints = 100;
+	_maxHp = 100;
 	_nrgPoints = 50;
 	_atckDamage = 20;
 	_guardGate = false;
+}
+
+ScavTrap::ScavTrap(const ScavTrap& other): ClapTrap(other) {
+	std::cout << "ScavTrap copy constructor called" << std::endl;
+	*this = other;
 }
 
 ScavTrap::~ScavTrap() {
 	std::cout << "ScavTrap destructor called" << std::endl;
 }
 
-
-ScavTrap::ScavTrap(const ScavTrap& other): ClapTrap(other) {
-	std::cout << "ScavTrap copy constructor called" << std::endl;
-	*this = other;
+ScavTrap& ScavTrap::operator=(const ScavTrap& copy)
+{
+	std::cout << "ScavTrap Overload operator= called" << std::endl;
+	if (this == &copy)
+		return (*this);
+	return (*this);
 }
 
 void	ScavTrap::attack(const std::string& target) {
