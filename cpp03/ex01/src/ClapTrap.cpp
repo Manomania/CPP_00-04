@@ -13,6 +13,7 @@ ClapTrap::ClapTrap(const std::string& name): _name(name), _hitPoints(10), _nrgPo
 }
 
 ClapTrap::~ClapTrap() {
+	std::cout << "ClapTrap destructor called" << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& copy)
