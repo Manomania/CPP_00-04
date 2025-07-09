@@ -21,6 +21,7 @@ int main() {
 	ScavTrap1.attack("robot");
 	ScavTrap2.takeDamage(10);
 	ScavTrap2.beRepaired(11);
+	ScavTrap2.guardGate();
 	for (int i = 0; i < 11; i++)
 		ScavTrap2.attack("other robot");
 }
