@@ -40,16 +40,17 @@ void	ScavTrap::attack(const std::string& target) {
 	if (this->_hitPoints > 0 && this->_nrgPoints > 0) {
 		std::cout << "ScavTrap " << this->_name << " attacks " << target << ", causing " << this->_atckDamage << " points of damage!" << std::endl;
 		this->_nrgPoints--;
-	}
-	else
+	} else
 		std::cout << "ScavTrap " << this->_name << " cannot attack " << target << "..." << std::endl;
 }
 
 void	ScavTrap::guardGate() {
-	if (_guardGate == false) {
-		_guardGate = true;
-		std::cout << this->_name << " is now in Gate keeper mode" << std::endl;
-	}
-	else
-		std::cout << this->_name << " is already in Gate keeper mode" << std::endl;
+	if (this->_hitPoints <= 0) {
+		if (_guardGate == false) {
+			_guardGate = true;
+			std::cout << this->_name << " is now in Gate keeper mode" << std::endl;
+		} else
+			std::cout << this->_name << " is already in Gate keeper mode" << std::endl;
+	} else
+		std::cout << this->_name << " cannot be in Gate keeper mode cuz he's dead" << std::endl;
 }
