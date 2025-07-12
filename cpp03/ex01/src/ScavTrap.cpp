@@ -12,7 +12,6 @@ ScavTrap::ScavTrap(): ClapTrap() {
 
 ScavTrap::ScavTrap(const std::string& name): ClapTrap(name) {
 	std::cout << "ScavTrap assignment constructor called" << std::endl;
-	_name = name;
 	_hitPoints = 100;
 	_maxHp = 100;
 	_nrgPoints = 50;
