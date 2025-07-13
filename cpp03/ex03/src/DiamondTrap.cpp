@@ -2,7 +2,7 @@
 
 DiamondTrap::DiamondTrap(): ClapTrap(), ScavTrap(), FragTrap() {
 	std::cout << "DiamondTrap default constructor called" << std::endl;
-	_name = "DiamondTrap";
+	this->_name = "DiamondTrap";
 	this->_hitPoints = FragTrap::_hitPoints;
 	this->_maxHp = FragTrap::_maxHp;
 	this->_nrgPoints = ScavTrap::_nrgPoints;
@@ -11,6 +11,7 @@ DiamondTrap::DiamondTrap(): ClapTrap(), ScavTrap(), FragTrap() {
 
 DiamondTrap::DiamondTrap(const std::string& name): ClapTrap(name + "_clap_name"), ScavTrap(name), FragTrap(name) {
 	std::cout << "DiamondTrap assignment constructor called" << std::endl;
+	this->_name = name;
 	this->_hitPoints = FragTrap::_hitPoints;
 	this->_maxHp = FragTrap::_maxHp;
 	this->_nrgPoints = ScavTrap::_nrgPoints;
