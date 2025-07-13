@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 AUTHOR				:=  maximart
-NAME				:=	ex02
+NAME				:=	ex03
 HEADER				=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
@@ -13,12 +13,14 @@ AR					:=	ar rcs
 RM					:=	rm -f
 
 SRC_F				=	ClapTrap	\
+						DiamondTrap	\
 						FragTrap	\
 						main		\
 						ScavTrap
 HDR_F				=	ClapTrap	\
+						DiamondTrap	\
 						FragTrap	\
-						ScavTrap	\
+						ScavTrap
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))
