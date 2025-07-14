@@ -52,7 +52,7 @@ void	ScavTrap::guardGate() {
 			_guardGate = true;
 			std::cout << "ScavTrap " << this->_name << " is now in Gate keeper mode" << std::endl;
 		} else
-			std::cout << "ScavTrap " << " is already in Gate keeper mode" << std::endl;
+			std::cout << "ScavTrap " << this->_name << " is already in Gate keeper mode" << std::endl;
 	} else
-		std::cout << "ScavTrap " << " cannot be in Gate keeper mode cuz he's dead" << std::endl;
+		std::cout << "ScavTrap " << this->_name << " cannot be in Gate keeper mode cuz he's dead" << std::endl;
 }
