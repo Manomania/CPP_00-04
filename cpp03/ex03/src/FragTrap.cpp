@@ -2,19 +2,19 @@
 
 FragTrap::FragTrap(): ClapTrap() {
 	std::cout << "FragTrap default constructor called" << std::endl;
-	_name = "FragTrap";
-	_hitPoints = 100;
-	_maxHp = 100;
-	_nrgPoints = 100;
-	_atckDamage = 30;
+	this->_name = "FragTrap";
+	this->_hitPoints = 100;
+	this->_maxHp = 100;
+	this->_nrgPoints = 100;
+	this->_atckDamage = 30;
 }
 
 FragTrap::FragTrap(const std::string& name): ClapTrap(name) {
 	std::cout << "FragTrap assignment constructor called" << std::endl;
-	_hitPoints = 100;
-	_maxHp = 100;
-	_nrgPoints = 100;
-	_atckDamage = 30;
+	this->_hitPoints = 100;
+	this->_maxHp = 100;
+	this->_nrgPoints = 100;
+	this->_atckDamage = 30;
 }
 
 FragTrap::FragTrap(const FragTrap& other): ClapTrap(other) {
