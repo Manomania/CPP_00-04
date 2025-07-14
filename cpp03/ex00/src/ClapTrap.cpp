@@ -19,8 +19,10 @@ ClapTrap::~ClapTrap() {
 ClapTrap& ClapTrap::operator=(const ClapTrap& copy)
 {
 	std::cout << "Overload operator= called" << std::endl;
-	if (this == &copy)
-		return (*this);
+	this->_name = copy._name;
+	this->_hitPoints = copy._hitPoints;
+	this->_nrgPoints = copy._nrgPoints;
+	this->_atckDamage = copy._atckDamage;
 	return (*this);
 }
 
