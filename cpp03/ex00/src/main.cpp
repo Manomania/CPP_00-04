@@ -19,7 +19,7 @@ int main() {
 	ClapTrap3.takeDamage(9);
 	ClapTrap3.beRepaired(10);
 
-	std::cout << "\n===CONSTRUCTOR COPY CLAPTRAP===\n" << std::endl;
+	std::cout << "\n===OVERLOADED OPERATOR= CLAPTRAP===\n" << std::endl;
 	ClapTrap ClapTrap4 = ClapTrap1;
 	ClapTrap4.attack("model_4");
 	ClapTrap4.beRepaired(10);
