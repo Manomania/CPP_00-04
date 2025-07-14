@@ -11,13 +11,19 @@ CFLAGS				+=	-std=c++98
 AR					:=	ar rcs
 RM					:=	rm -f
 
-SRC_F				=	Animal	\
-						Cat		\
-						Dog		\
-						main
-HDR_F				=	Animal	\
-						Cat		\
-						Dog
+SRC_F				=	Animal		\
+						Cat			\
+						Dog			\
+						main		\
+						WrongAnimal	\
+						WrongCat	\
+						WrongDog
+HDR_F				=	Animal		\
+						Cat			\
+						Dog			\
+						WrongAnimal	\
+						WrongCat	\
+						WrongDog
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))

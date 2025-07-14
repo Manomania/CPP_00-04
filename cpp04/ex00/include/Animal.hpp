@@ -12,7 +12,9 @@ class Animal {
 	// Overloaded Operator
 		Animal& operator=(const Animal& copy);
 	// Destructor
-		~Animal();
+		virtual ~Animal();
+	// Getter
+		std::string getType() const;
 	// Public Methods
-		void	makeSound();
+		virtual void	makeSound() const;
 };
