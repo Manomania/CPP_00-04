@@ -31,11 +31,10 @@ ScavTrap::~ScavTrap() {
 ScavTrap& ScavTrap::operator=(const ScavTrap& copy)
 {
 	std::cout << "ScavTrap Overload operator= called" << std::endl;
-	this->_name = copy._name;
-	this->_hitPoints = copy._hitPoints;
-	this->_maxHp = copy._maxHp;
-	this->_nrgPoints = copy._nrgPoints;
-	this->_atckDamage = copy._atckDamage;
+	if (this == &copy)
+		return (*this);
+	ClapTrap::operator=(copy);
+	this->_guardGate = copy._guardGate;
 	return (*this);
 }
 
