@@ -15,5 +15,6 @@ class Dog: public Animal {
 	// Destructor
 		virtual ~Dog();
 	// Public Methods
+		Brain*			getBrain() const;
 		virtual void	makeSound() const;
 };

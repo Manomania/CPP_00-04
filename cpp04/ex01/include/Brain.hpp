@@ -12,6 +12,4 @@ public:
 	Brain& operator=(const Brain& copy);
 	// Destructor
 	~Brain();
-	// Public Methods
-
 };

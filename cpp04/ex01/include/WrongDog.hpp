@@ -3,8 +3,6 @@
 #include "Brain.hpp"
 
 class WrongDog: public WrongAnimal {
-	private:
-		Brain* _brain;
 	public:
 	// Constructor
 		WrongDog();
