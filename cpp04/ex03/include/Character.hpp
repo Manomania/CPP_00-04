@@ -16,6 +16,7 @@ public:
 	Character(const Character& copy);
 // Overloaded operator
 	Character& operator=(const Character& copy);
+// Destructor
 	~Character();
 // Public Methods
 	virtual std::string const & getName() const;
