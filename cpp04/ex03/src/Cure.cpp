@@ -1,5 +1,15 @@
 #include "Cure.hpp"
 
-virtual AMateria* clone() const {
+Cure::Cure() {
+}
+
+Cure::~Cure() {
+}
+
+AMateria* Cure::clone() const {
+	return (new Cure);
+}
+
+void Cure::use(ICharacter& target) {
 
 }

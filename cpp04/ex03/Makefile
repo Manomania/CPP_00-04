@@ -4,7 +4,7 @@
 
 AUTHOR				:=  maximart
 NAME				:=	ex03
-HEADER				=	$(INC_DIR)
+HEADER				:=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
 CFLAGS				+=	-std=c++98
@@ -17,13 +17,15 @@ HDR_F				=	AMateria		\
 						Ice				\
 						ICharacter		\
 						IMateriaSource	\
+						MateriaSource
 SRC_F				=	AMateria		\
 						Character		\
 						Cure			\
 						Ice				\
 						ICharacter		\
 						IMateriaSource	\
-						main
+						main			\
+						MateriaSource
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))
