@@ -11,11 +11,19 @@ CFLAGS				+=	-std=c++98
 AR					:=	ar rcs
 RM					:=	rm -f
 
-SRC_F				=	AMateria	\
-						ICharacter	\
+HDR_F				=	AMateria		\
+						Character		\
+						Cure			\
+						Ice				\
+						ICharacter		\
+						IMateriaSource	\
+SRC_F				=	AMateria		\
+						Character		\
+						Cure			\
+						Ice				\
+						ICharacter		\
+						IMateriaSource	\
 						main
-HDR_F				=	AMateria	\
-						ICharacter
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))
