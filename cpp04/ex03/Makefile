@@ -22,8 +22,6 @@ SRC_F				=	AMateria		\
 						Character		\
 						Cure			\
 						Ice				\
-						ICharacter		\
-						IMateriaSource	\
 						main			\
 						MateriaSource
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))

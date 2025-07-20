@@ -15,5 +15,5 @@ std::string const& AMateria::getType() const {
 }
 
 void AMateria::use(ICharacter& target) {
-	std::cout << "Nothing has been launched at " << target._name << std::endl;
+	std::cout << this->getType() << " has been launched at " << target.getName() << std::endl;
 }

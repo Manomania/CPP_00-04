@@ -6,7 +6,7 @@
 class Character: public ICharacter {
 private:
 	std::string _name;
-	AMateria*	_type[4];
+	AMateria*	_items[4];
 public:
 // Constructor
 	Character();
@@ -17,7 +17,7 @@ public:
 // Overloaded operator
 	Character& operator=(const Character& copy);
 // Destructor
-	~Character();
+	virtual ~Character();
 // Public Methods
 	virtual std::string const & getName() const;
 	virtual void equip(AMateria* m);
