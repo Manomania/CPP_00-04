@@ -53,8 +53,11 @@ void MateriaSource::learnMateria(AMateria* m) {
 
 AMateria* MateriaSource::createMateria(std::string const& type) {
 	for (int i = 0; i < 4; i++) {
-		if (this->_materias[i] != NULL && this->_materias[i]->getType() == type)
+		if (this->_materias[i] != NULL && this->_materias[i]->getType() == type) {
+			std::cout << "Creating a materia of type '"<< type << "'" << std::endl;
 			return (this->_materias[i]->clone());
+		}
 	}
+	std::cout << "Error: Unable to create materia of type '"<< type << "'" << std::endl;
 	return (NULL);
 }

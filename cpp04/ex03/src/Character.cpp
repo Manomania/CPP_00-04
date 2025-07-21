@@ -59,24 +59,53 @@ void Character::equip(AMateria* m) {
 	for (int i = 0; i < 4; i++) {
 		if (this->_items[i] == NULL) {
 			this->_items[i] = m;
-			std::cout << "Materia " << m << " has been equipped at position " << i << std::endl;
+			std::cout << "Materia " << m->getType() << " has been equipped at position " << i << std::endl;
 			return ;
 		}
 	}
-	std::cout << "Inventory is full" << std::endl;
+	std::cout << "Error: Inventory is full" << std::endl;
 }
 
 void Character::unequip(int idx) {
+	if (idx < 0 || idx >= 4) {
+		std::cout << "Error: Invalid slot" << std::endl;
+		return ;
+	}
 	if (this->_items[idx] != NULL) {
-		std::cout << this->_items[idx]->getType() << " has been unequiped." << std::endl;
+		if (_indexFloor < 100) {
+			_floor[_indexFloor] = this->_items[idx];
+			std::cout << _floor[_indexFloor]->getType() << " has been dropped on the floor" << std::endl;
+			_indexFloor++;
+		} else {
+			std::cout << "No place on the floor! Destroying " << this->_items[idx]->getType() << std::endl;
+			delete this->_items[idx];
+		}
 		this->_items[idx] = NULL;
 	} else
-		std::cout << "Inventory is empty" << std::endl;
+		std::cout << "This slot is empty" << std::endl;
 }
 
 void Character::use(int idx, ICharacter& target) {
+	if (idx >= 4 || idx < 0) {
+		std::cout << "Error: Slot " << idx << " does not exist" << std::endl;
+		return ;
+	}
 	if (this->_items[idx] != NULL) {
 		this->_items[idx]->use(target);
 	} else
 		std::cout << "There is not item available" << std::endl;
 }
+
+void Character::cleanFloor() {
+	for (int i = 0; i < _indexFloor; i++) {
+		if (_floor[i] != NULL) {
+			delete _floor[i];
+			_floor[i] = NULL;
+		}
+	}
+	std::cout << "Floor is cleaned up" << std::endl;
+	_indexFloor = 0;
+}
+
+AMateria* Character::_floor[100];
+int Character::_indexFloor = 0;

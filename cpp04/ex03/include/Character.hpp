@@ -5,8 +5,10 @@
 
 class Character: public ICharacter {
 private:
-	std::string _name;
-	AMateria*	_items[4];
+	std::string			_name;
+	AMateria*			_items[4];
+	static AMateria*	_floor[100];
+	static int			_indexFloor;
 public:
 // Constructor
 	Character();
@@ -23,4 +25,5 @@ public:
 	virtual void equip(AMateria* m);
 	virtual void unequip(int idx);
 	virtual void use(int idx, ICharacter& target);
+	static void	cleanFloor();
 };
