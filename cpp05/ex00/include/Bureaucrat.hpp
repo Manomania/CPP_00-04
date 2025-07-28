@@ -22,7 +22,7 @@ public:
 	};
 	Bureaucrat(const std::string& name, size_t grade);
 	Bureaucrat(const Bureaucrat& copy);
-	Bureaucrat& operator=(const Bureaucrat& copy);
+	Bureaucrat& operator=(const Bureaucrat& pther);
 	const std::string& getName() const;
 	size_t getGrade() const;
 	void incrementGrade();
