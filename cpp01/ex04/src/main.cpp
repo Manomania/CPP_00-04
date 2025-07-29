@@ -43,7 +43,7 @@ std::string	getContent(std::string line, const std::string &s1, const std::strin
 
 bool	checkError(const int argc, char **argv, const std::ifstream &file)
 {
-	const std::string	s2 = argv[3];
+	const std::string	s1 = argv[2];
 
 	if (argc != 4)
 	{
@@ -55,7 +55,7 @@ bool	checkError(const int argc, char **argv, const std::ifstream &file)
 		std::cerr << "Error: Cannot open file " << argv[1] << std::endl;
 		return (true);
 	}
-	if (s2.empty())
+	if (s1.empty())
 		return (true);
 	return (false);
 }
