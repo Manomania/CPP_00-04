@@ -1,48 +1,52 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 
-Form::Form(): _name("default"), _isItSigned("false"), _signGrade(150), _constGrade(150) {
+AForm::AForm(): _name("default"), _isItSigned("false"), _signGrade(150), _constGrade(150) {
 
 }
 
-Form::Form(const std::string& name, size_t signGrade, size_t constGrade): _name(name), _isItSigned(false), _signGrade(signGrade), _constGrade(constGrade) {
+AForm::AForm(const std::string& name, size_t signGrade, size_t constGrade, const std::string& target): _name(name), _isItSigned(false), _signGrade(signGrade), _constGrade(constGrade), _target(target) {
 	if (signGrade > 150 || constGrade > 150)
 		throw GradeTooLowException();
 	else if (signGrade < 1 || constGrade < 1)
 		throw GradeTooHighException();
 }
 
-Form::Form(const Form& copy): _name(copy._name), _isItSigned(copy._isItSigned), _signGrade(copy._signGrade), _constGrade(copy._constGrade) {
+AForm::AForm(const AForm& copy): _name(copy._name), _isItSigned(copy._isItSigned), _signGrade(copy._signGrade), _constGrade(copy._constGrade) {
 
 }
 
-Form::~Form() {
+AForm::~AForm() {
 
 }
 
-Form& Form::operator=(const Form& other) {
+AForm& AForm::operator=(const AForm& other) {
 	if (this == &other)
 		return (*this);
 	this->_isItSigned = other._isItSigned;
 	return (*this);
 }
 
-const std::string& Form::getName() const {
+const std::string& AForm::getName() const {
 	return (this->_name);
 }
 
-bool Form::getIsItSigned() const {
+bool AForm::getIsItSigned() const {
 	return (this->_isItSigned);
 }
 
-size_t Form::getSignGrade() const {
+size_t AForm::getSignGrade() const {
 	return (this->_signGrade);
 }
 
-size_t Form::getConstGrade() const {
+size_t AForm::getConstGrade() const {
 	return (this->_constGrade);
 }
 
-void Form::beSigned(const Bureaucrat& bc) {
+const std::string& AForm::getTarget() const {
+	return (this->_target);
+}
+
+void AForm::beSigned(const Bureaucrat& bc) {
 	if (bc.getGrade() > this->_signGrade)
 		throw GradeTooLowException();
 	else if (this->_isItSigned == true)
@@ -53,7 +57,7 @@ void Form::beSigned(const Bureaucrat& bc) {
 	}
 }
 
-std::ostream& operator<<(std::ostream& os, const Form& fm) {
+std::ostream& operator<<(std::ostream& os, const AForm& fm) {
 	os << "Form : " << fm.getName() << "\n";
 	os << "Is it signed: " << fm.getIsItSigned() << "\n";
 	os << "Grade needed to be signed: " << fm.getSignGrade() << "\n";

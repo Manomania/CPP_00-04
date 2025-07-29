@@ -1,9 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 private:
@@ -31,7 +31,7 @@ public:
 	size_t getGrade() const;
 	void incrementGrade();
 	void decrementGrade();
-	void signForm(Form& fm);
+	void signForm(AForm& fm);
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bc);
