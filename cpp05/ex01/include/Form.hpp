@@ -13,14 +13,15 @@ private:
 public:
 	class GradeTooLowException: public std::exception {
 		virtual const char* what() const throw() {
-			return ("Too low");
+			return ("grade too low");
 		}
 	};
 	class GradeTooHighException: public std::exception {
 		virtual const char* what() const throw() {
-			return ("Too high");
+			return ("grade too high");
 		}
 	};
+	Form();
 	Form(const std::string& name, size_t signGrade, size_t constGrade);
 	Form(const Form& copy);
 	~Form();
@@ -32,4 +33,4 @@ public:
 	void beSigned(const Bureaucrat& bc);
 };
 
-std::ostream& operator<<(std::ostream& os, Form& fm);
+std::ostream& operator<<(std::ostream& os, const Form& fm);
