@@ -13,13 +13,13 @@ public:
 	class GradeTooHighException: public std::exception {
 	public:
 		virtual const char* what() const throw() {
-			return ("Grade too high, 1 max\n");
+			return ("grade too high\n");
 		}
 	};
 	class GradeTooLowException: public std::exception {
 	public:
 		virtual const char *what() const throw() {
-			return ("Grade too low, 150 min\n");
+			return ("grade too low\n");
 		}
 	};
 	Bureaucrat();
@@ -32,6 +32,7 @@ public:
 	void incrementGrade();
 	void decrementGrade();
 	void signForm(AForm& fm);
+	void executeForm(AForm const & form);
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bc);
