@@ -36,6 +36,5 @@ int main() {
 	std::cout << Bernard << std::endl;
 	Bernard.signForm(Form3);
 	Bernard.executeForm(Form3);
-
 	return (0);
 }
