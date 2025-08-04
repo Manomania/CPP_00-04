@@ -34,18 +34,16 @@ size_t Bureaucrat::getGrade() const {
 }
 
 void Bureaucrat::incrementGrade() {
-	if (this->_grade == 1)
+	if (this->_grade <= 1)
 		throw GradeTooHighException();
-	else
-		this->_grade--;
+	this->_grade--;
 
 }
 
 void Bureaucrat::decrementGrade() {
-	if (this->_grade == 150)
+	if (this->_grade >= 150)
 		throw GradeTooLowException();
-	else
-		this->_grade++;
+	this->_grade++;
 }
 
 void Bureaucrat::signForm(AForm& fm) {
@@ -54,6 +52,23 @@ void Bureaucrat::signForm(AForm& fm) {
 	}
 	catch (std::exception& e) {
 		std::cout << this->getName() << " couldn't sign " << fm.getName() << " because " << e.what() << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(AForm const& form) {
+	try {
+		if (!form.getIsItSigned()) {
+			std::cout << this->getName() << " cannot execute " << form.getName() << " because it is not signed" << std::endl;
+			return;
+		}
+		if (this->getGrade() > form.getConstGrade()) {
+			throw GradeTooLowException();
+		}
+		std::cout << this->getName() << " executed " << form.getName() << std::endl;
+		form.execute(*this);
+	}
+	catch (std::exception& e) {
+		std::cout << this->getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
 	}
 }
 
