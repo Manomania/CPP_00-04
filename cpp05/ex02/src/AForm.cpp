@@ -1,6 +1,6 @@
 #include "AForm.hpp"
 
-AForm::AForm(): _name("default"), _isItSigned("false"), _signGrade(150), _constGrade(150) {
+AForm::AForm(): _name("default"), _isItSigned(false), _signGrade(150), _constGrade(150) {
 
 }
 
