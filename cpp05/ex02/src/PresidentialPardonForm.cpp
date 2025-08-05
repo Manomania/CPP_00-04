@@ -12,7 +12,7 @@ void PresidentialPardonForm::execute(Bureaucrat const& executor) const {
 	if (this->getIsItSigned() == false)
 		std::cout << this->getName() << " cannot be executed because it needs to be signed" << std::endl;
 	else if (executor.getGrade() > this->getConstGrade())
-		throw GradeTooLowException();
+		throw Bureaucrat::GradeTooLowException();
 	else
 		std::cout << this->getTarget() << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }

@@ -1,7 +1,14 @@
 #include "AForm.hpp"
 
-AForm::AForm(): _name("default"), _isItSigned(false), _signGrade(150), _constGrade(150) {
+AForm::AForm(): _name("default"), _isItSigned(false), _signGrade(150), _constGrade(150), _target("default") {
 
+}
+
+AForm::AForm(const std::string& name, size_t signGrade, size_t constGrade): _name(name), _isItSigned(false), _signGrade(signGrade), _constGrade(constGrade) {
+	if (signGrade > 150 || constGrade > 150)
+		throw GradeTooLowException();
+	else if (signGrade < 1 || constGrade < 1)
+		throw GradeTooHighException();
 }
 
 AForm::AForm(const std::string& name, size_t signGrade, size_t constGrade, const std::string& target): _name(name), _isItSigned(false), _signGrade(signGrade), _constGrade(constGrade), _target(target) {
@@ -11,7 +18,7 @@ AForm::AForm(const std::string& name, size_t signGrade, size_t constGrade, const
 		throw GradeTooHighException();
 }
 
-AForm::AForm(const AForm& copy): _name(copy._name), _isItSigned(copy._isItSigned), _signGrade(copy._signGrade), _constGrade(copy._constGrade) {
+AForm::AForm(const AForm& copy): _name(copy._name), _isItSigned(copy._isItSigned), _signGrade(copy._signGrade), _constGrade(copy._constGrade), _target(copy._target) {
 
 }
 
