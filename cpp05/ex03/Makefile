@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 AUTHOR				:=  maximart
-NAME				:=	ex02
+NAME				:=	ex03
 HEADER				=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
@@ -13,11 +13,13 @@ RM					:=	rm -f
 
 HDR_F				=	AForm					\
 						Bureaucrat				\
+						Intern					\
 						PresidentialPardonForm	\
 						RobotomyRequestForm		\
 						ShrubberyCreationForm
 SRC_F				=	AForm					\
 						Bureaucrat				\
+						Intern					\
 						main					\
 						PresidentialPardonForm	\
 						RobotomyRequestForm		\
