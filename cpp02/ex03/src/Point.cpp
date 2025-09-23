@@ -22,9 +22,8 @@ Point::Point(const Point& copy): _x(copy._x), _y(copy._y) {
 }
 
 Point& Point::operator=(const Point& copy) {
-	if (this == &copy)
-		return (*this);
-	return (*this);
+	Point newPoint(copy);
+	return (newPoint);
 }
 
 Point::~Point(){
