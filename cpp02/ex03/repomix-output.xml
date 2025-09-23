@@ -1,0 +1,693 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+include/
+  Fixed.hpp
+  Point.hpp
+obj/
+  bsp.d
+  Fixed.d
+  main.d
+  Point.d
+src/
+  bsp.cpp
+  Fixed.cpp
+  main.cpp
+  Point.cpp
+Makefile
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="include/Fixed.hpp">
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maximart <maximart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/23 13:00:00 by maximart          #+#    #+#             */
+/*   Updated: 2025/06/23 13:00:00 by maximart         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#pragma once
+#include <iostream>
+#include <cmath>
+
+class Fixed {
+	private:
+		int					_number;
+		static const int	_bits;
+	public:
+		Fixed();
+		Fixed(const Fixed& copy);
+		Fixed(const int number);
+		Fixed(const float number);
+		Fixed& operator=(const Fixed& copy);
+
+		bool operator>(const Fixed& other) const;
+		bool operator<(const Fixed& other) const;
+		bool operator>=(const Fixed& other) const;
+		bool operator<=(const Fixed& other) const;
+		bool operator==(const Fixed& other) const;
+		bool operator!=(const Fixed& other) const;
+
+		Fixed operator+(const Fixed& other) const;
+		Fixed operator-(const Fixed& other) const;
+		Fixed operator*(const Fixed& other) const;
+		Fixed operator/(const Fixed& other) const;
+
+
+		Fixed& operator++();
+		Fixed operator++(int);
+		Fixed& operator--();
+		Fixed operator--(int);
+		~Fixed();
+		int		getRawBits() const;
+		void	setRawBits(int const raw);
+		float	toFloat() const;
+		int		toInt() const;
+		static Fixed&	min(Fixed& a, Fixed& b);
+		static Fixed&	max(Fixed& a, Fixed& b);
+		static const Fixed&	min(const Fixed& a, const Fixed& b);
+		static const Fixed&	max(const Fixed& a, const Fixed& b);
+};
+
+std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
+</file>
+
+<file path="include/Point.hpp">
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Point.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maximart <maximart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/03 09:57:50 by maximart          #+#    #+#             */
+/*   Updated: 2025/07/03 09:59:01 by maximart         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#pragma once
+#include "Fixed.hpp"
+
+class Point {
+	private:
+		const Fixed _x;
+		const Fixed _y;
+	public:
+		Point();
+		Point(const float x, const float y);
+		Point(const Point& copy);
+		Point& operator=(const Point& copy);
+		~Point();
+		const Fixed& getX() const;
+		const Fixed& getY() const;
+};
+
+bool	bsp(Point const a, Point const b, Point const c, Point const point);
+</file>
+
+<file path="obj/bsp.d">
+obj/bsp.o: src/bsp.cpp include/Point.hpp include/Fixed.hpp
+
+include/Point.hpp:
+
+include/Fixed.hpp:
+</file>
+
+<file path="obj/Fixed.d">
+obj/Fixed.o: src/Fixed.cpp include/Fixed.hpp
+
+include/Fixed.hpp:
+</file>
+
+<file path="obj/main.d">
+obj/main.o: src/main.cpp include/Point.hpp include/Fixed.hpp
+
+include/Point.hpp:
+
+include/Fixed.hpp:
+</file>
+
+<file path="obj/Point.d">
+obj/Point.o: src/Point.cpp include/Point.hpp include/Fixed.hpp
+
+include/Point.hpp:
+
+include/Fixed.hpp:
+</file>
+
+<file path="src/bsp.cpp">
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bsp.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maximart <maximart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/03 09:58:13 by maximart          #+#    #+#             */
+/*   Updated: 2025/07/03 09:58:13 by maximart         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Point.hpp"
+
+
+float	getArea(Point const p1, Point const p2, Point const p3)
+{
+	float area = (p1.getX().toFloat() * (p2.getY().toFloat() - p3.getY().toFloat())
+					+ p2.getX().toFloat() * (p3.getY().toFloat() - p1.getY().toFloat())
+					+ p3.getX().toFloat() * (p1.getY().toFloat() - p2.getY().toFloat())) / 2;
+	if (area >= 0)
+		return (area);
+	else
+		return (-area);
+}
+
+bool	bsp(Point const a, Point const b, Point const c, Point const point)
+{
+	float area = getArea(a, b, c);
+	float p1 = getArea(point, a, b);
+	float p2 = getArea(point, b, c);
+	float p3 = getArea(point, a, c);
+
+	if (p1 == 0 || p2 == 0 || p3 == 0)
+		return (false);
+	else if (area == p1 + p2 + p3)
+		return (true);
+	return (false);
+}
+</file>
+
+<file path="src/Fixed.cpp">
+#include "Fixed.hpp"
+
+const int	Fixed::_bits = 8;
+
+Fixed::Fixed(): _number(0) {
+}
+
+Fixed::Fixed(const Fixed &copy):  _number(copy._number) {
+}
+
+Fixed& Fixed::operator=(const Fixed &copy) {
+	if (this != &copy)
+		this->setRawBits(copy.getRawBits());
+	return (*this);
+}
+
+bool Fixed::operator<(const Fixed& other) const
+{
+	return (this->_number < other._number);
+}
+
+bool Fixed::operator>(const Fixed& other) const
+{
+	return (this->_number > other._number);
+}
+
+bool Fixed::operator>=(const Fixed& other) const
+{
+	return (this->_number >= other._number);
+}
+
+bool Fixed::operator<=(const Fixed& other) const
+{
+	return (this->_number <= other._number);
+}
+
+bool Fixed::operator==(const Fixed& other) const
+{
+	return (this->_number == other._number);
+}
+
+bool Fixed::operator!=(const Fixed& other) const
+{
+	return (this->_number != other._number);
+}
+
+Fixed Fixed::operator+(const Fixed& other) const
+{
+	Fixed result;
+	result._number = this->_number + other._number;
+	return (result);
+}
+
+Fixed Fixed::operator-(const Fixed& other) const
+{
+	Fixed result;
+	result._number = this->_number - other._number;
+	return (result);
+}
+
+Fixed Fixed::operator*(const Fixed& other) const
+{
+	return (Fixed(this->toFloat() * other.toFloat()));
+}
+
+Fixed Fixed::operator/(const Fixed& other) const
+{
+	if (other._number == 0)
+	{
+		std::cout << "You can´t divide by zero" << std::endl;
+		return (*this);
+	}
+	return (Fixed(this->toFloat() / other.toFloat()));
+}
+
+Fixed& Fixed::operator++()
+{
+	++_number;
+	return (*this);
+}
+
+Fixed Fixed::operator++(int)
+{
+	Fixed post(*this);
+	++(*this);
+	return (post);
+}
+
+Fixed& Fixed::operator--()
+{
+	--_number;
+	return (*this);
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed post(*this);
+	--(*this);
+	return (post);
+}
+
+Fixed::Fixed(const int number): _number(number << _bits)
+{
+}
+
+Fixed::Fixed(const float number): _number(roundf(number * (1 << _bits)))
+{
+}
+
+Fixed::~Fixed()
+{
+}
+
+int		Fixed::getRawBits() const
+{
+	return (this->_number);
+}
+
+void	Fixed::setRawBits(int const raw)
+{
+	this->_number = raw;
+}
+
+int		Fixed::toInt() const
+{
+	return (this->_number >> this->_bits);
+}
+
+float		Fixed::toFloat() const
+{
+	return (this->_number / (float)(1 << this->_bits));
+}
+
+Fixed&	Fixed::min(Fixed& a, Fixed& b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+Fixed&	Fixed::max(Fixed& a, Fixed& b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+const Fixed& Fixed::min(const Fixed& a, const Fixed& b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+const Fixed& Fixed::max(const Fixed& a, const Fixed& b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+std::ostream& operator<<(std::ostream& os, const Fixed& fixed)
+{
+	os << fixed.toFloat();
+	return (os);
+}
+</file>
+
+<file path="src/main.cpp">
+#include "Point.hpp"
+
+int main()
+{
+	Point a(0, 0);
+	Point b(4, 0);
+	Point c(2, 3);
+	Point inside(2, 1);
+	Point outside(-2, 1);
+	Point onEdge(2, 3);
+	Point onVertex(3, 0);
+	Point close(1.9, 0.1);
+
+	std::cout << "\nTests:" << std::endl;
+	std::cout << "inside: " << bsp(a, b, c, inside) << std::endl;
+	std::cout << "outside: " << bsp(a, b, c, outside) << std::endl;
+	std::cout << "onEdge: " << bsp(a, b, c, onEdge) << std::endl;
+	std::cout << "onVertex: " << bsp(a, b, c, onVertex) << std::endl;
+	std::cout << "close: " << bsp(a, b, c, close) << std::endl;
+	return 0;
+}
+</file>
+
+<file path="src/Point.cpp">
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Point.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maximart <maximart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/03 09:57:50 by maximart          #+#    #+#             */
+/*   Updated: 2025/07/03 09:57:50 by maximart         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Point.hpp"
+
+Point::Point(): _x(0), _y(0) {
+}
+
+Point::Point(const float x, const float y): _x(x), _y(y) {
+}
+
+Point::Point(const Point& copy): _x(copy._x), _y(copy._y) {
+}
+
+Point& Point::operator=(const Point& copy) {
+	if (this != &copy){
+		_x = copy._x;
+		_y = copy._y;
+	}
+	return (*this);
+}
+
+Point::~Point(){
+}
+
+const Fixed& Point::getX() const
+{
+	return (this->_x);
+}
+const Fixed& Point::getY() const
+{
+	return (this->_y);
+}
+</file>
+
+<file path="Makefile">
+########################################################################################################################
+#                                                      VARIABLES                                                       #
+########################################################################################################################
+
+AUTHOR				:=  maximart
+NAME				:=	ex03
+HEADER				=	$(INC_DIR)
+CC 					:=	c++
+CFLAGS 				:=	-Wall -Wextra -Werror
+CFLAGS				+=	-std=c++98
+CFLAGS 				+=	-MMD -MP
+AR					:=	ar rcs
+RM					:=	rm -f
+
+SRC_F				=	bsp		\
+						Fixed	\
+						main	\
+						Point
+HDR_F				=	Fixed	\
+						Point
+SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
+OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
+HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))
+DEP 				=	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_F)))
+
+NPROCS				:=	$(shell nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 1)
+UNAME_S				:=	$(shell uname -s 2>/dev/null || echo "Unknown")
+
+########################################################################################################################
+#                                                      DIRECTORY                                                       #
+########################################################################################################################
+
+SRC_DIR				:=	src/
+OBJ_DIR				:=	obj/
+INC_DIR				:=	include/
+
+########################################################################################################################
+#                                                       TARGETS                                                        #
+########################################################################################################################
+
+.print_header:
+							$(call DISPLAY_TITLE)
+							$(call SEPARATOR)
+							$(call BUILD)
+							$(call SEPARATOR)
+
+all:					.print_header $(NAME)
+
+clean:					.print_header
+							@printf "%$(SPACEMENT)b%b" "$(BLUE)[$(OBJ_DIR)]:" "$(GREEN)[✓]$(DEF_COLOR)\n"
+							@rm -rf $(OBJ_DIR)
+							@printf "$(RED)=> Deleted!$(DEF_COLOR)\n"
+							$(call SEPARATOR)
+
+fclean: 				clean
+							@printf "%$(SPACEMENT)b%b" "$(BLUE)[$(NAME)]:" "$(GREEN)[✓]$(DEF_COLOR)\n"
+							@$(RM) $(NAME)
+							@printf "$(RED)=> Deleted!$(DEF_COLOR)\n"
+							$(call SEPARATOR)
+
+re: 					.print_header fclean all
+
+help:
+							$(call DISPLAY_HELP)
+
+info:
+							$(call DISPLAY_INFO)
+
+.PHONY: 				all clean fclean re help info
+
+########################################################################################################################
+#                                                       COMMANDS                                                       #
+########################################################################################################################
+
+$(NAME):				$(OBJ)
+							@if [ ! -f "$(NAME)" ] && [ "$(MAKECMDGOALS)" != "re" ]; then \
+								printf "$(BLUE)[$(NAME)]:$(DEF_COLOR)\n"; \
+								printf "%-42b%b" "\r$(GREEN)Linking finished" "$(GREEN)[✓]$(DEF_COLOR)\n"; \
+								printf "\n"; \
+								echo "$(ORANGE)--------------------------------------------------------------------------$(DEF_COLOR)"; \
+								printf "\n"; \
+							fi
+							@$(CC) $(CFLAGS) $(OBJ) -o $@
+
+$(OBJ_DIR)%.o: 			$(SRC_DIR)%.cpp $(INC_DIR)
+							@mkdir -p $(dir $@)
+							@$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+							$(call PROGRESS_BAR_PERCENTAGE)
+							$(if $(filter $(COMPILED_SRCS),$(SRCS_TO_COMPILE)),$(call SEPARATOR))
+
+########################################################################################################################
+#                                                       COLOURS                                                        #
+########################################################################################################################
+
+DEF_COLOR			:=	\033[0;39m
+ORANGE				:=	\033[0;33m
+GRAY				:=	\033[0;90m
+RED					:=	\033[0;91m
+GREEN				:=	\033[1;92m
+YELLOW				:=	\033[1;93m
+BLUE				:=	\033[0;94m
+MAGENTA				:=	\033[0;95m
+CYAN				:=	\033[0;96m
+WHITE				:=	\033[0;97m
+PURPLE				:=	\033[0;35m
+
+########################################################################################################################
+#                                                       DISPLAY                                                        #
+########################################################################################################################
+
+SPACEMENT			:=	-41
+COMPILED_SRCS		:=	0
+FRAMES				:=	⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏
+SLEEP_FRAME			:=	0.001
+
+ifeq ($(MAKECMDGOALS),re)
+					SRCS_TO_COMPILE := $(shell find $(SRC_DIR) -name '*.cpp' | wc -l)
+				else
+					SRCS_TO_COMPILE := $(shell \
+						if [ -f "$(NAME)" ]; then \
+							if [ "$(INC_DIR)" -nt "$(NAME)" ]; then \
+								find $(SRC_DIR) -name '*.cpp' | wc -l; \
+							else \
+								modified_headers=$$(find $(INC_DIR) -name '*.h' -o -name '*.hpp' -newer "$(NAME)"); \
+								all_affected_headers="$$modified_headers"; \
+								search_headers="$$modified_headers"; \
+								while [ -n "$$search_headers" ]; do \
+									new_found=""; \
+									for h in $$search_headers; do \
+										h_name=$$(basename $$h); \
+										includers=$$(grep -rl '#include *"'"$$h_name"'"' $(INC_DIR)); \
+										new_found="$$new_found $$includers"; \
+									done; \
+									search_headers=$$(echo $$new_found | tr ' ' '\n' | sort -u | grep -v -x -F "$$(echo $$all_affected_headers | tr ' ' '\n')" ); \
+									all_affected_headers="$$all_affected_headers $$search_headers"; \
+								done; \
+								all_affected_headers=$$(echo $$all_affected_headers | tr ' ' '\n' | sort -u); \
+								affected_cpp=""; \
+								for h in $$all_affected_headers; do \
+									h_name=$$(basename $$h); \
+									cpps=$$(grep -rl '#include *"'"$$h_name"'"' $(SRC_DIR)); \
+									affected_cpp="$$affected_cpp $$cpps"; \
+								done; \
+								modified_cpp=$$(find $(SRC_DIR) -name '*.cpp' -newer "$(NAME)"); \
+								all_cpp="$$modified_cpp $$affected_cpp"; \
+								echo "$$(echo $$all_cpp | tr ' ' '\n' | sort -u | wc -l)"; \
+							fi; \
+						else \
+							find $(SRC_DIR) -name '*.cpp' | wc -l; \
+						fi)
+endif
+
+define PROGRESS_BAR_PERCENTAGE
+						$(eval COMPILED_SRCS := $(shell expr $(COMPILED_SRCS) + 1))
+						@if [ $(SRCS_TO_COMPILE) -gt 0 ]; then \
+							if [ $(COMPILED_SRCS) -eq 1 ]; then \
+								printf "$(BLUE)[$(NAME)]:$(DEF_COLOR)\n"; \
+							fi; \
+							percentage=$$(expr $(COMPILED_SRCS) \* 100 / $(SRCS_TO_COMPILE) 2>/dev/null || echo 0); \
+							for frame in $(FRAMES); do \
+								printf "\r$(YELLOW)%s Compiling... [%d/%d] %d%%$(DEF_COLOR)" "$$frame" $(COMPILED_SRCS) $(SRCS_TO_COMPILE) $$percentage; \
+								sleep $(SLEEP_FRAME); \
+							done; \
+							if [ $(COMPILED_SRCS) -eq $(SRCS_TO_COMPILE) ]; then \
+								printf "%-42b%b" "\r$(GREEN)Compilation finished [$(COMPILED_SRCS)/$(SRCS_TO_COMPILE)]" "$(GREEN)[✓]$(DEF_COLOR)\n"; \
+							fi; \
+						fi
+endef
+
+#TITLE ASCII ART - SLANT
+define	DISPLAY_TITLE
+						@echo "$(RED)			   __________  ____ "
+						@echo "$(ORANGE)			  / ____/ __ \\/ __ \\"
+						@echo "$(YELLOW)			 / /   / /_/ / /_/ /"
+						@echo "$(GREEN)			/ /___/ ____/ ____/ "
+						@echo "$(BLUE)			\\____/_/   /_/      "
+						@printf "$(PURPLE)			                    $(DEF_COLOR)"
+endef
+
+
+define	SEPARATOR
+						@printf "\n"
+						@echo "$(ORANGE)--------------------------------------------------------------------------$(DEF_COLOR)";
+						@printf "\n"
+endef
+
+define	BUILD
+						@printf "%-47b%b" "$(GREEN)AUTHOR:$(DEF_COLOR)" "$(AUTHOR)\n";
+						@printf "%-47b%b" "$(GREEN)NAME:$(DEF_COLOR)" "$(NAME)\n";
+						@printf "%-47b%b" "$(GREEN)CC:$(DEF_COLOR)" "$(CC)\n";
+						@printf "%-47b%b" "$(GREEN)FLAGS:$(DEF_COLOR)" "$(CFLAGS)\n";
+endef
+
+define DISPLAY_HELP
+						$(call SEPARATOR)
+						@printf "                              🚀 MAKEFILE HELP\n"
+						$(call SEPARATOR)
+						@printf "$(GREEN)Basic commands:$(DEF_COLOR)\n"
+						@printf "%-33b%b" "make" "- Build in release mode\n"
+						@printf "%-33b%b" "make clean" "- Remove object files\n"
+						@printf "%-33b%b" "make fclean" "- Remove all generated files\n"
+						@printf "%-33b%b" "make re" "- Clean and rebuild\n\n"
+						@printf "$(GREEN)Advanced commands:$(DEF_COLOR)\n"
+						@printf "%-33b%b" "make info" "- Show system info\n"
+						$(call SEPARATOR)
+endef
+
+define PLURAL
+$(if $(filter 1,$(1)),file,files)
+endef
+
+define DISPLAY_INFO
+						$(call SEPARATOR)
+						@printf "                              📋 SYSTEM INFO\n"
+						$(call SEPARATOR)
+						@printf "%-47b%b" "$(GREEN)System:$(DEF_COLOR)" "$(UNAME_S)\n"
+						@printf "%-47b%b" "$(GREEN)Compiler:$(DEF_COLOR)" "$(CC) $(shell $(CC) --version 2>/dev/null | head -1 | cut -d' ' -f2- || print 'version unknown')\n"
+						@printf "%-47b%b" "$(GREEN)CPU Cores:$(DEF_COLOR)" "$(NPROCS)\n"
+						@printf "%-47b%b" "$(GREEN)Sources:$(DEF_COLOR)" "$(words $(SRC_F)) $(call PLURAL,$(words $(SRC_F)))\n"
+						@printf "%-47b%b" "$(GREEN)Headers:$(DEF_COLOR)" "$(words $(HDR_F)) $(call PLURAL,$(words $(HDR_F)))\n"
+						@printf "%-47b%b" "$(GREEN)Current Dir:$(DEF_COLOR)" "$(shell pwd)\n"
+						@printf "%-47b%b" "$(GREEN)Makefile:$(DEF_COLOR)" "$(firstword $(MAKEFILE_LIST))\n"
+						$(call SEPARATOR)
+endef
+
+-include $(DEP)
+</file>
+
+</files>
